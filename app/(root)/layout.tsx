@@ -8,7 +8,7 @@ export default function HomeLayout({
   return (
     <main className="flex flex-row">
       <SideBar />
-      <section className="flex flex-col">{children}</section>
+      <section className="flex flex-col flex-1">{children}</section>
     </main>
   );
 }
