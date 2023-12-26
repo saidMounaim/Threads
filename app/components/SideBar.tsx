@@ -30,7 +30,7 @@ const SideBar = () => {
           </li>
           <li className="flex flex-col py-3 px-4 rounded-lg w-full">
             <Link
-              href="/"
+              href="/create"
               className="flex gap-x-2 items-center font-medium text-xl"
             >
               <ImageIcon className="w-5 h-5" />
