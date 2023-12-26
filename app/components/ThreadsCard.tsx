@@ -1,4 +1,5 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
 
 type TUser = {
   id: string | null;
@@ -15,7 +16,11 @@ interface IThreadsCard {
 
 const ThreadsCard = ({ id, description, user, createdAt }: IThreadsCard) => {
   return (
-    <div className="flex w-full flex-col rounded-xl bg-slate-900 p-7" key={id}>
+    <Link
+      href={`/thread/${id}`}
+      className="flex w-full flex-col rounded-xl bg-slate-900 p-7"
+      key={id}
+    >
       <div className="flex items-start gap-x-4">
         <div className="flex items-center">
           <Avatar>
@@ -31,7 +36,7 @@ const ThreadsCard = ({ id, description, user, createdAt }: IThreadsCard) => {
           <p className="text-md font-normal text-white">{description}</p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
