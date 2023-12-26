@@ -14,10 +14,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { useSession } from "next-auth/react";
 import { ThreadSchema } from "../utils/validator";
 import { createThread } from "../utils/actions";
 
 const FormCreateThread = () => {
+  const { data: session, status } = useSession();
+  const userId = session?.user.id as string;
+
   const form = useForm<z.infer<typeof ThreadSchema>>({
     resolver: zodResolver(ThreadSchema),
     defaultValues: {
@@ -25,8 +29,9 @@ const FormCreateThread = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof ThreadSchema>) {
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof ThreadSchema>) {
+    const { description } = values;
+    await createThread({ description, userId });
   }
 
   return (

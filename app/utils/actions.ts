@@ -1,13 +1,22 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import prisma from "./db";
 
-export async function createThread(formData: FormData) {
+interface ICreateThreadAction {
+  description: string;
+  userId: string;
+}
+
+export async function createThread({
+  description,
+  userId,
+}: ICreateThreadAction) {
   "use server";
 
-  const description = formData.get("description") as string;
-  const userId = formData.get("userId") as string;
   const thread = await prisma.thread.create({
-    data: { id: "test", description, userId },
+    data: { description, userId },
   });
+
+  revalidatePath("/");
 }
