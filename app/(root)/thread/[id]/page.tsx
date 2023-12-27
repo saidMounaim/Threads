@@ -1,5 +1,6 @@
 import ThreadsCard from "@/app/components/ThreadsCard";
 import prisma from "../../../utils/db";
+import { TUser } from "@/app/types/types";
 
 async function getData(id: string) {
   const data = await prisma.thread.findUnique({
@@ -13,12 +14,6 @@ async function getData(id: string) {
   });
   return data;
 }
-
-type TUser = {
-  id: string | null;
-  name: string | null;
-  image: string | null;
-};
 
 interface IThreadPage {
   params: {

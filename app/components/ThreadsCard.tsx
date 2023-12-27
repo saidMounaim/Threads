@@ -1,18 +1,6 @@
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Link from "next/link";
-
-type TUser = {
-  id: string | null;
-  name: string | null;
-  image: string | null;
-};
-
-interface IThreadsCard {
-  id: string;
-  description: string;
-  user: TUser;
-  createdAt: Date;
-}
+import { IThreadsCard } from "../types/types";
 
 const ThreadsCard = ({ id, description, user, createdAt }: IThreadsCard) => {
   return (
