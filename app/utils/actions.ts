@@ -3,26 +3,16 @@
 import { revalidatePath } from "next/cache";
 import prisma from "./db";
 import { redirect } from "next/navigation";
+import { IAddCommentAction, ICreateThreadAction } from "../types/types";
 
-interface ICreateThreadAction {
-  description: string;
-  userId: string;
-}
-
-interface IAddCommentAction {
-  comment: string;
-  threadId: string;
-  userId: string;
-  pathname: string;
-}
-
+// Create Thread
 export async function createThread({
   description,
   userId,
 }: ICreateThreadAction) {
   "use server";
 
-  const thread = await prisma.thread.create({
+  await prisma.thread.create({
     data: { description, userId },
   });
 
@@ -30,15 +20,17 @@ export async function createThread({
   redirect("/");
 }
 
+// Delete Thread
 export async function deleteThread(threadId: string) {
   "use server";
 
-  const thread = await prisma.thread.delete({ where: { id: threadId } });
+  await prisma.thread.delete({ where: { id: threadId } });
 
   revalidatePath("/");
   redirect("/");
 }
 
+// Add Comment
 export async function addComment({
   comment,
   threadId,
@@ -54,6 +46,15 @@ export async function addComment({
       userId,
     },
   });
+
+  revalidatePath(pathname);
+}
+
+// Delete Comment
+export async function deleteComment(commentID: string, pathname: string) {
+  "use server";
+
+  await prisma.comment.delete({ where: { id: commentID } });
 
   revalidatePath(pathname);
 }

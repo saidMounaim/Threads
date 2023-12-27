@@ -21,3 +21,15 @@ export interface ICommentCard {
 export interface IFormAddComment {
   threadId: string;
 }
+
+export interface ICreateThreadAction {
+  description: string;
+  userId: string;
+}
+
+export interface IAddCommentAction {
+  comment: string;
+  threadId: string;
+  userId: string;
+  pathname: string;
+}

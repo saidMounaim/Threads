@@ -1,7 +1,21 @@
+"use client";
+
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { ICommentCard } from "../types/types";
+import { useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import { deleteComment } from "../utils/actions";
+import { usePathname } from "next/navigation";
 
 const CommentCard = ({ id, user, comment, createdAt }: ICommentCard) => {
+  const { data: session, status } = useSession();
+
+  const pathname = usePathname();
+
+  const removeComment = async () => {
+    if (confirm("Are u sure?")) await deleteComment(id, pathname);
+  };
+
   return (
     <div
       className="flex w-full flex-col rounded-xl bg-slate-800 px-4 py-5 relative"
@@ -22,6 +36,19 @@ const CommentCard = ({ id, user, comment, createdAt }: ICommentCard) => {
           <p className="text-md font-normal text-white">{comment}</p>
         </div>
       </div>
+      {session?.user.id && session?.user.id === user.id && (
+        <div className="absolute top-4 right-5">
+          <Button
+            onClick={() => {
+              removeComment();
+            }}
+            variant="destructive"
+            className="bg-red-600 text-white"
+          >
+            Delete Comment
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

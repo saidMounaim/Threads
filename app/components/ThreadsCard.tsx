@@ -10,7 +10,7 @@ import { deleteThread } from "../utils/actions";
 const ThreadsCard = ({ id, description, user, createdAt }: IThreadsCard) => {
   const { data: session, status } = useSession();
 
-  const removeThread = async (id: string) => {
+  const removeThread = async () => {
     if (confirm("Are u sure?")) await deleteThread(id);
   };
 
@@ -38,7 +38,7 @@ const ThreadsCard = ({ id, description, user, createdAt }: IThreadsCard) => {
         <div className="absolute top-4 right-5">
           <Button
             onClick={() => {
-              removeThread(id);
+              removeThread();
             }}
             variant="destructive"
             className="bg-red-600 text-white"
