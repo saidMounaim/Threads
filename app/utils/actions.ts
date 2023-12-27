@@ -22,3 +22,12 @@ export async function createThread({
   revalidatePath("/");
   redirect("/");
 }
+
+export async function deleteThread(threadId: string) {
+  "use server";
+
+  const thread = await prisma.thread.delete({ where: { id: threadId } });
+
+  revalidatePath("/");
+  redirect("/");
+}
