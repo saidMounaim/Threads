@@ -4,7 +4,7 @@ import { ICommentCard } from "../types/types";
 const CommentCard = ({ id, user, comment, createdAt }: ICommentCard) => {
   return (
     <div
-      className="flex w-full flex-col rounded-xl bg-slate-800 p-7 relative"
+      className="flex w-full flex-col rounded-xl bg-slate-800 px-4 py-5 relative"
       key={id}
     >
       <div className="flex items-start gap-x-4">

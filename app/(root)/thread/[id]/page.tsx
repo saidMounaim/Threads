@@ -2,6 +2,7 @@ import ThreadsCard from "@/app/components/ThreadsCard";
 import prisma from "../../../utils/db";
 import { TUser } from "@/app/types/types";
 import FormAddComment from "@/app/components/FormAddComment";
+import CommentCard from "@/app/components/CommentCard";
 
 async function getData(id: string) {
   const data = await prisma.thread.findUnique({
@@ -11,7 +12,20 @@ async function getData(id: string) {
       description: true,
       createdAt: true,
       user: true,
-      Comments: true,
+      Comments: {
+        select: {
+          id: true,
+          comment: true,
+          createdAt: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+        },
+      },
     },
   });
   return data;
@@ -41,6 +55,17 @@ const ThreadPage = async ({ params }: IThreadPage) => {
       <h2 className="text-white text-lg font-bold">
         {thread?.Comments.length} Comments
       </h2>
+
+      <div className="flex flex-col gap-y-3 mt-4">
+        {thread?.Comments.map((c) => (
+          <CommentCard
+            id={c.id}
+            user={c.user}
+            comment={c.comment}
+            createdAt={c.createdAt}
+          />
+        ))}
+      </div>
 
       <div className="flex flex-col mt-4 gap-y-3">
         <FormAddComment threadId={thread?.id as string} />
