@@ -5,3 +5,9 @@ export const ThreadSchema = z.object({
     message: "Thread must be at least 10 characters.",
   }),
 });
+
+export const CommentSchema = z.object({
+  comment: z.string().min(10, {
+    message: "Comment required",
+  }),
+});

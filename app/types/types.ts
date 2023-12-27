@@ -10,3 +10,10 @@ export interface IThreadsCard {
   user: TUser;
   createdAt: Date;
 }
+
+export interface ICommentCard {
+  id: string;
+  comment: string;
+  user: TUser;
+  createdAt: Date;
+}
