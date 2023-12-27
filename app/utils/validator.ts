@@ -7,7 +7,7 @@ export const ThreadSchema = z.object({
 });
 
 export const CommentSchema = z.object({
-  comment: z.string().min(10, {
+  comment: z.string().min(1, {
     message: "Comment required",
   }),
 });

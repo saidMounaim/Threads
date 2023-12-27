@@ -1,6 +1,6 @@
 import ThreadsCard from "@/app/components/ThreadsCard";
 import prisma from "../../../utils/db";
-import { TUser } from "@/app/types/types";
+import { IComments, TUser } from "@/app/types/types";
 import FormAddComment from "@/app/components/FormAddComment";
 import CommentCard from "@/app/components/CommentCard";
 
@@ -16,6 +16,8 @@ async function getData(id: string) {
         select: {
           id: true,
           comment: true,
+          userId: true,
+          threadId: true,
           createdAt: true,
           user: {
             select: {
@@ -50,6 +52,8 @@ const ThreadPage = async ({ params }: IThreadPage) => {
         description={thread?.description as string}
         createdAt={thread?.createdAt as Date}
         user={thread?.user as TUser}
+        comments={thread?.Comments as IComments[]}
+        hideComment={true}
       />
 
       <h2 className="text-white text-lg font-bold">

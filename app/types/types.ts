@@ -4,11 +4,21 @@ export type TUser = {
   image: string | null;
 };
 
+export interface IComments {
+  id: string;
+  comment: string;
+  userId: string;
+  threadId: string;
+  createdAt: Date;
+}
+
 export interface IThreadsCard {
   id: string;
   description: string;
   user: TUser;
   createdAt: Date;
+  comments: IComments[];
+  hideComment: boolean;
 }
 
 export interface ICommentCard {

@@ -9,6 +9,7 @@ async function getData() {
     select: {
       id: true,
       description: true,
+      Comments: true,
       user: {
         select: {
           id: true,
@@ -42,6 +43,8 @@ export default async function Home() {
           description={thread.description}
           createdAt={thread.createdAt}
           user={thread.user}
+          comments={thread.Comments}
+          hideComment={false}
         />
       ))}
     </section>

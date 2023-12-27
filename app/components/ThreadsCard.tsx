@@ -7,7 +7,14 @@ import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import { deleteThread } from "../utils/actions";
 
-const ThreadsCard = ({ id, description, user, createdAt }: IThreadsCard) => {
+const ThreadsCard = ({
+  id,
+  description,
+  user,
+  comments,
+  createdAt,
+  hideComment,
+}: IThreadsCard) => {
   const { data: session, status } = useSession();
 
   const removeThread = async () => {
@@ -32,6 +39,11 @@ const ThreadsCard = ({ id, description, user, createdAt }: IThreadsCard) => {
         <div className="flex flex-col gap-y-2">
           <h2 className="text-lg text-white font-bold">{user?.name}</h2>
           <p className="text-md font-normal text-white">{description}</p>
+          {!hideComment && (
+            <div className="flex flex-col mt-3">
+              <p>{comments.length} Comments</p>
+            </div>
+          )}
         </div>
       </Link>
       {session?.user.id && session?.user.id === user.id && (
