@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import prisma from "./db";
+import { redirect } from "next/navigation";
 
 interface ICreateThreadAction {
   description: string;
@@ -19,4 +20,5 @@ export async function createThread({
   });
 
   revalidatePath("/");
+  redirect("/");
 }
