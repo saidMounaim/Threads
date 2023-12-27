@@ -10,6 +10,7 @@ async function getData() {
       id: true,
       description: true,
       Comments: true,
+      Likes: true,
       user: {
         select: {
           id: true,
@@ -44,6 +45,7 @@ export default async function Home() {
           createdAt={thread.createdAt}
           user={thread.user}
           comments={thread.Comments}
+          likes={thread.Likes}
           hideComment={false}
         />
       ))}
