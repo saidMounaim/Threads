@@ -17,3 +17,7 @@ export interface ICommentCard {
   user: TUser;
   createdAt: Date;
 }
+
+export interface IFormAddComment {
+  threadId: string;
+}

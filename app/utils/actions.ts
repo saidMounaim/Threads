@@ -9,6 +9,13 @@ interface ICreateThreadAction {
   userId: string;
 }
 
+interface IAddCommentAction {
+  comment: string;
+  threadId: string;
+  userId: string;
+  pathname: string;
+}
+
 export async function createThread({
   description,
   userId,
@@ -30,4 +37,23 @@ export async function deleteThread(threadId: string) {
 
   revalidatePath("/");
   redirect("/");
+}
+
+export async function addComment({
+  comment,
+  threadId,
+  userId,
+  pathname,
+}: IAddCommentAction) {
+  "use server";
+
+  await prisma.comment.create({
+    data: {
+      comment,
+      threadId,
+      userId,
+    },
+  });
+
+  revalidatePath(pathname);
 }

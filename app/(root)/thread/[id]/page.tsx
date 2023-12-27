@@ -43,7 +43,7 @@ const ThreadPage = async ({ params }: IThreadPage) => {
       </h2>
 
       <div className="flex flex-col mt-4 gap-y-3">
-        <FormAddComment />
+        <FormAddComment threadId={thread?.id as string} />
       </div>
     </section>
   );

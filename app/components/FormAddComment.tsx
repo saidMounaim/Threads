@@ -16,10 +16,15 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useSession } from "next-auth/react";
 import { CommentSchema } from "../utils/validator";
+import { addComment } from "../utils/actions";
+import { IFormAddComment } from "../types/types";
+import { usePathname } from "next/navigation";
 
-const FormAddComment = () => {
+const FormAddComment = ({ threadId }: IFormAddComment) => {
   const { data: session, status } = useSession();
   const userId = session?.user.id as string;
+
+  const pathname = usePathname();
 
   const form = useForm<z.infer<typeof CommentSchema>>({
     resolver: zodResolver(CommentSchema),
@@ -30,6 +35,7 @@ const FormAddComment = () => {
 
   async function onSubmit(values: z.infer<typeof CommentSchema>) {
     const { comment } = values;
+    await addComment({ comment, threadId, userId, pathname });
   }
 
   return (
