@@ -2,6 +2,7 @@
 
 Threads Using Next.js 14, Prisma, TailwindCSS & Next-Auth 🤩
 
+![screenshot](https://images2.imgbox.com/ec/92/EHJhKpRF_o.jpg)
 ![screenshot](https://images2.imgbox.com/93/45/v646GWsp_o.jpg)
 ![screenshot](https://images2.imgbox.com/77/8e/uZW32Y5W_o.jpg)
 ![screenshot](https://images2.imgbox.com/9b/61/w91DNbjM_o.jpg)
