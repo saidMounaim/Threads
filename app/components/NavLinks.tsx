@@ -54,7 +54,7 @@ const NavLinks = () => {
         }`}
       >
         <Link
-          href="/"
+          href="/user/profile"
           className="flex gap-x-2 items-center font-medium text-xl"
         >
           <User2Icon className="w-5 h-5" />
