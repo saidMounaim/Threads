@@ -56,3 +56,7 @@ export interface IFollowButton {
   followerId: string;
   followingId: string;
 }
+
+export interface IUnfollowButton {
+  followingId: string;
+}

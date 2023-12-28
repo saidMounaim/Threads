@@ -98,8 +98,20 @@ export async function followUser(
 ) {
   "use server";
 
-  await prisma.follower.create({ data: { userId: followingId } });
-  await prisma.following.create({ data: { userId: followerId } });
+  await prisma.follows.create({ data: { followerId, followingId } });
+
+  revalidatePath(pathname);
+}
+
+// Unfollow User
+export async function unfollowUser(
+  followerId: string,
+  followingId: string,
+  pathname: string
+) {
+  "use server";
+
+  await prisma.follows.deleteMany({ where: { followerId, followingId } });
 
   revalidatePath(pathname);
 }

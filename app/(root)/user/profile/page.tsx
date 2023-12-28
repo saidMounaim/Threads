@@ -12,10 +12,9 @@ async function getData(userId: string) {
       id: true,
       name: true,
       image: true,
-      Followers: {
+      followers: {
         select: {
-          id: true,
-          user: {
+          follower: {
             select: {
               id: true,
               name: true,
@@ -24,10 +23,9 @@ async function getData(userId: string) {
           },
         },
       },
-      Following: {
+      following: {
         select: {
-          id: true,
-          user: {
+          following: {
             select: {
               id: true,
               name: true,
@@ -92,8 +90,8 @@ const ProfilePage = async () => {
           </h2>
           <div className="flex gap-x-3">
             <p>{user?.Threads.length} Threads</p>
-            <p>{user?.Followers.length} Followers</p>
-            <p>{user?.Following.length} Following</p>
+            <p>{user?.followers.length} Followers</p>
+            <p>{user?.following.length} Following</p>
           </div>
         </div>
       </div>

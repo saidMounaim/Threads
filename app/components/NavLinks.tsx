@@ -24,19 +24,6 @@ const NavLinks = () => {
       </li>
       <li
         className={`flex flex-col py-3 px-4 rounded-lg w-full ${
-          pathname == "/search" ? `bg-blue-600` : ``
-        }`}
-      >
-        <Link
-          href="/search"
-          className="flex gap-x-2 items-center font-medium text-xl"
-        >
-          <SearchIcon className="w-5 h-5" />
-          Search
-        </Link>
-      </li>
-      <li
-        className={`flex flex-col py-3 px-4 rounded-lg w-full ${
           pathname == "/create" ? `bg-blue-600` : ``
         }`}
       >

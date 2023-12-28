@@ -51,24 +51,17 @@ model User {
   Threads       Thread[]
   Comments      Comment[]
   Likes         Like[]
-  Followers     Follower[]
-  Following     Following[]
+  followers     Follows[] @relation("following")
+  following     Follows[] @relation("follower")
 }
 
-model Follower {
-  id            String    @id @default(cuid())
-  user          User      @relation(fields: [userId], references: [id])
-  userId        String
+model Follows {
+  follower    User @relation("follower", fields: [followerId], references: [id])
+  followerId  String
+  following   User @relation("following", fields: [followingId], references: [id])
+  followingId String
 
-  createdAt     DateTime @default(now())
-}
-
-model Following {
-  id            String    @id @default(cuid())
-  user          User      @relation(fields: [userId], references: [id])
-  userId        String
-
-  createdAt     DateTime @default(now())
+  @@id([followerId, followingId])
 }
 
 model Thread {

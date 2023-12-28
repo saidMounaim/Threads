@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/auth";
 import FollowButton from "@/app/components/FollowButton";
+import UnfollowButton from "@/app/components/UnfollowButton";
 
 async function getData(userId: string) {
   const data = await prisma.user.findUnique({
@@ -14,10 +15,9 @@ async function getData(userId: string) {
       id: true,
       name: true,
       image: true,
-      Followers: {
+      followers: {
         select: {
-          id: true,
-          user: {
+          follower: {
             select: {
               id: true,
               name: true,
@@ -26,10 +26,9 @@ async function getData(userId: string) {
           },
         },
       },
-      Following: {
+      following: {
         select: {
-          id: true,
-          user: {
+          following: {
             select: {
               id: true,
               name: true,
@@ -67,6 +66,17 @@ async function getData(userId: string) {
   return data;
 }
 
+async function getFollowing(followerId: string, followingId: string) {
+  const data = await prisma.follows.findFirst({
+    where: { followerId, followingId },
+  });
+  if (data) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 interface IProfilePage {
   params: {
     id: string;
@@ -83,6 +93,11 @@ const ProfilePage = async ({ params }: IProfilePage) => {
   if (session?.user.id === user?.id) return redirect("/user/profile");
 
   if (!user) return redirect("/");
+
+  const checkFollowers = await getFollowing(
+    session?.user.id as string,
+    user.id
+  );
 
   return (
     <section className="max-w-4xl mt-11 flex flex-col gap-5 ml-16">
@@ -102,13 +117,20 @@ const ProfilePage = async ({ params }: IProfilePage) => {
           <h2 className="text-3xl text-white font-bold">{user.name}</h2>
           <div className="flex gap-x-3">
             <p>{user?.Threads.length} Threads</p>
-            <p>{user.Followers.length} Followers</p>
-            <p>{user.Following.length} Following</p>
+            <p>{user.followers.length} Followers</p>
+            <p>{user.following.length} Following</p>
           </div>
-          <FollowButton
-            followerId={session?.user.id as string}
-            followingId={user.id}
-          />
+          {!checkFollowers ? (
+            <FollowButton
+              followerId={session?.user.id as string}
+              followingId={user.id}
+            />
+          ) : (
+            <UnfollowButton
+              followerId={session?.user.id as string}
+              followingId={user.id}
+            />
+          )}
         </div>
       </div>
       <h1 className="text-3xl font-bold text-white mt-32">
