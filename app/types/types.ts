@@ -51,3 +51,8 @@ export interface IAddCommentAction {
   userId: string;
   pathname: string;
 }
+
+export interface IFollowButton {
+  followerId: string;
+  followingId: string;
+}

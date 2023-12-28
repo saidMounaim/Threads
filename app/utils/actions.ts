@@ -89,3 +89,17 @@ export async function removeLikeThread(likeId: string, pathname: string) {
 
   revalidatePath(pathname);
 }
+
+// Follow User
+export async function followUser(
+  followerId: string,
+  followingId: string,
+  pathname: string
+) {
+  "use server";
+
+  await prisma.follower.create({ data: { userId: followingId } });
+  await prisma.following.create({ data: { userId: followerId } });
+
+  revalidatePath(pathname);
+}

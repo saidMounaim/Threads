@@ -5,6 +5,7 @@ import prisma from "../../../utils/db";
 import { Button } from "@/components/ui/button";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/auth";
+import FollowButton from "@/app/components/FollowButton";
 
 async function getData(userId: string) {
   const data = await prisma.user.findUnique({
@@ -13,6 +14,30 @@ async function getData(userId: string) {
       id: true,
       name: true,
       image: true,
+      Followers: {
+        select: {
+          id: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+        },
+      },
+      Following: {
+        select: {
+          id: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+            },
+          },
+        },
+      },
       Threads: {
         select: {
           id: true,
@@ -77,17 +102,13 @@ const ProfilePage = async ({ params }: IProfilePage) => {
           <h2 className="text-3xl text-white font-bold">{user.name}</h2>
           <div className="flex gap-x-3">
             <p>{user?.Threads.length} Threads</p>
-            <p>0 Followers</p>
-            <p>0 Following</p>
+            <p>{user.Followers.length} Followers</p>
+            <p>{user.Following.length} Following</p>
           </div>
-          <div className="flex flex-col mt-3">
-            <Button
-              variant="destructive"
-              className="bg-blue-600 text-white hover:bg-blue-800 transition"
-            >
-              Follow
-            </Button>
-          </div>
+          <FollowButton
+            followerId={session?.user.id as string}
+            followingId={user.id}
+          />
         </div>
       </div>
       <h1 className="text-3xl font-bold text-white mt-32">
