@@ -1,4 +1,5 @@
 import GithubButton from "@/app/components/GithubButton";
+import GoogleButton from "@/app/components/GoogleButton";
 import { authOptions } from "@/app/utils/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
@@ -14,6 +15,7 @@ const LoginPage = async () => {
         to continue to Threads
       </p>
       <GithubButton />
+      <GoogleButton />
     </div>
   );
 };

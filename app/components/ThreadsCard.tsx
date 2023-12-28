@@ -56,11 +56,7 @@ const ThreadsCard = ({
       <Link href={`/thread/${id}`} className="flex items-start gap-x-4">
         <Link href={`/user/${user?.id}`} className="flex items-center">
           <Avatar>
-            {user?.image ? (
-              <AvatarImage src={user?.image} />
-            ) : (
-              <AvatarImage src={"https://github.com/shadcn.png"} />
-            )}
+            <AvatarImage src={user?.image as string} />
           </Avatar>
         </Link>
         <div className="flex flex-col gap-y-2">
