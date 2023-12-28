@@ -51,6 +51,24 @@ model User {
   Threads       Thread[]
   Comments      Comment[]
   Likes         Like[]
+  Followers     Follower[]
+  Following     Following[]
+}
+
+model Follower {
+  id            String    @id @default(cuid())
+  user          User      @relation(fields: [userId], references: [id])
+  userId        String
+
+  createdAt     DateTime @default(now())
+}
+
+model Following {
+  id            String    @id @default(cuid())
+  user          User      @relation(fields: [userId], references: [id])
+  userId        String
+
+  createdAt     DateTime @default(now())
 }
 
 model Thread {
@@ -87,6 +105,8 @@ model Like {
 
   createdAt     DateTime @default(now())
 }
+
+
 
 model VerificationToken {
   identifier String

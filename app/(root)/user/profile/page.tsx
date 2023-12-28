@@ -66,6 +66,11 @@ const ProfilePage = async () => {
           <h2 className="text-3xl text-white font-bold">
             {session?.user.name}
           </h2>
+          <div className="flex gap-x-3">
+            <p>{user?.Threads.length} Threads</p>
+            <p>0 Followers</p>
+            <p>0 Following</p>
+          </div>
         </div>
       </div>
       <h1 className="text-3xl font-bold text-white mt-32">My Threads</h1>
